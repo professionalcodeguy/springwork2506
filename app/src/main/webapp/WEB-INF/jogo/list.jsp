@@ -7,7 +7,6 @@
         <title>Jogos</title>
     </head>
     <body>
-        <%@ include file = "../_templates/navbar.jsp"%>
         <div class="container">
         <h1>Jogos</h1>
             <a href="/jogos/insert" class="btn btn-primary">Novo Livro</a>

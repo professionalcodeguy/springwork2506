@@ -8,7 +8,6 @@
         
     </head>
     <body>
-        <%@ include file = "../_templates/navbar.jsp"%>
         <div class="container">
         <h1>Novo Jogo</h1>
             <form action="/jogos/insert" method="post">

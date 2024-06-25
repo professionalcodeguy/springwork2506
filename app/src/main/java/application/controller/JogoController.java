@@ -8,23 +8,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import application.repository.JogosRepository;
+import application.repository.JogoRepository;
 import org.springframework.ui.Model;
 
 import application.model.Genero;
-import application.model.Jogos;
+import application.model.Jogo;
 import application.repository.GeneroRepository;
 
 @Controller
-@RequestMapping(value = {"/", "/jogos"})
-public class JogosController {
+@RequestMapping(value = {"/jogos"})
+public class JogoController {
     @Autowired
-    private JogosRepository jogosRepo;
+    private JogoRepository jogosRepo;
     @Autowired
     private GeneroRepository generoRepo;
     
-    @RequestMapping(value = {"", "/list"})
+    @RequestMapping(value = {"/list"})
     public String list(Model ui){
+        
         ui.addAttribute("jogos", jogosRepo.findAll());
         return "/jogo/list";
     }
@@ -39,7 +40,7 @@ public class JogosController {
     public String insert(@RequestParam("titulo") String titulo, @RequestParam("genero") int generoId) {
         Optional<Genero> resultado = generoRepo.findById(generoId);
         if(resultado.isPresent()){
-            Jogos jogos = new Jogos();
+            Jogo jogos = new Jogo();
             jogos.setTitulo(titulo);
             jogos.setGenero(resultado.get());
 
@@ -50,9 +51,9 @@ public class JogosController {
 
         @RequestMapping("/update")
         public String update(@RequestParam("id") long id, Model ui) {
-            Optional<Jogos> result = jogosRepo.findById(id);
+            Optional<Jogo> result = jogosRepo.findById(id);
             if(result.isPresent()) {
-                ui.addAttribute("jogo", result.get());
+                ui.addAttribute("jogos", result.get());
                 ui.addAttribute("generos", generoRepo.findAll());
                 return "/jogo/update";
             }
@@ -60,7 +61,7 @@ public class JogosController {
         }
         
         @RequestMapping(value = "/update", method = RequestMethod.POST)
-        public String update(@RequestParam("id") long id, @RequestParam("titulo") String titulo, @RequestParam("genero") int generoId, Optional<Jogos> result) {
+        public String update(@RequestParam("id") long id, @RequestParam("titulo") String titulo, @RequestParam("genero") int generoId, Optional<Jogo> result) {
             Optional<Genero> resultGenero = generoRepo.findById(generoId);
             if(resultGenero.isPresent()) {
                 result.get().setTitulo(titulo);
@@ -72,7 +73,7 @@ public class JogosController {
         } 
         @RequestMapping("/delete")
         public String delete(Model ui, @RequestParam("id") long id) {
-            Optional<Jogos> resultado = jogosRepo.findById(id);
+            Optional<Jogo> resultado = jogosRepo.findById(id);
         
             if(resultado.isPresent()) {
                 ui.addAttribute("jogo", resultado.get());
