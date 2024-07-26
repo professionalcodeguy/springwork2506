@@ -1,5 +1,6 @@
 package application.model;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,25 +11,24 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Jogos")
+@Table(name = "jogos")
 public class Jogo {
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     @Column(nullable = false)
-    private String titulo; 
+    private String titulo;
+    private boolean multiplayer;
     
-    @ManyToOne 
-    
-    @JoinColumn(name = "id_genero", nullable = false) 
-    
+    @ManyToOne
+    @JoinColumn(name = "genero_id", nullable = false)
     private Genero genero;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,6 +40,14 @@ public class Jogo {
         this.titulo = titulo;
     }
 
+    public boolean isMultiplayer() {
+        return multiplayer;
+    }
+
+    public void setMultiplayer(boolean multiplayer) {
+        this.multiplayer = multiplayer;
+    }
+
     public Genero getGenero() {
         return genero;
     }
@@ -47,5 +55,4 @@ public class Jogo {
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
-
-}
+}                                          
